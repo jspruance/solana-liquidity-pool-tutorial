@@ -140,7 +140,7 @@ https://storacha.network/ipfs/<IMAGE_CID>
 
 ---
 
-### ⚙️ Step 2 — Update `metadata.json`
+### ⚙️ Step 2 — Create `metadata.json`
 
 Create or edit your `metadata.json` file to include the new image URL:
 
@@ -178,15 +178,20 @@ https://storacha.network/ipfs/<NEW_METADATA_CID>
 
 ---
 
-### ⚙️ Step 4 — Update Metadata On-Chain
+### ⚙️ Step 4 — Initialize Metadata On-Chain
 
-Finally, update your token’s metadata URI using the Solana CLI:
+Finally, initialize your token’s metadata account on-chain (the first time setup):
 
 ```bash
-spl-token update-metadata <MINT_ADDRESS>   --uri "https://storacha.network/ipfs/<NEW_METADATA_CID>"
+spl-token-2022 initialize-metadata <MINT_ADDRESS>   --name "MyToken Token"   --symbol "MTK"   --uri "https://storacha.network/ipfs/<NEW_METADATA_CID>"
 ```
 
-Once confirmed, your token will display its name, description, and logo in wallets and Solana explorers that support Token-2022 metadata.
+This creates the metadata account for your token.  
+It only needs to be done **once**.
+
+> 💡 **Need to make a change later?**  
+> Use `spl-token-2022 update-metadata <MINT_ADDRESS> --uri "<NEW_URI>"`  
+> if you upload a new image or JSON in the future.
 
 ---
 
@@ -211,7 +216,7 @@ You can pair with **SOL** or **USDC**, but here’s the difference:
 
 | Pair | Pros | Notes |
 |------|------|-------|
-| **SOL** | Most common  ✅ | Best visibility, simple setup, higher volume |
+| **SOL** | Most common ✅ | Best visibility, simple setup, higher volume |
 | **USDC** | Stable reference price | Slightly more setup, fewer pools |
 
 > 💡 For this tutorial, we’ll use **SOL** — it’s simpler, more liquid, and widely supported.
