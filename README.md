@@ -18,7 +18,7 @@ All steps are verified on **Mainnet-Beta** (Raydium does not support Devnet).
 By the end of this tutorial, you’ll know how to:
 
 - Understand what a **liquidity pool** and **AMM** (Automated Market Maker) are  
-- Mint your token on **mainnet-beta**  
+- Mint your token on **mainnet-beta** using the Token-2022 program  
 - Add a **Raydium liquidity pool** pairing your token with **SOL**  
 - View your new market on **Dexscreener** and **Jupiter**  
 - Give your token its **first real market value**
@@ -32,7 +32,7 @@ Before starting, make sure you have:
 - ✅ **Phantom Wallet** (set to *Mainnet-Beta*)  
 - ✅ **SOL** in your wallet (~0.05 SOL or about $7 for all fees)  
 - ✅ Your **mint address** for the token you created earlier  
-- ✅ Optional: your token logo and metadata hosted on Pinata / Storacha  
+- ✅ Optional: your token logo and metadata hosted on Storacha  
 
 ---
 
@@ -54,25 +54,45 @@ solana config set --keypair ~/.config/solana/mainnet.json
 
 Fund it with a small amount of SOL from an exchange.
 
-Then run:
+Then run the **same Token-2022 commands** as in the previous tutorial:
 
 ```bash
-spl-token create-token --enable-metadata
+spl-token create-token --program-id TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb --enable-metadata --decimals 9
 spl-token create-account <MINT_ADDRESS>
-spl-token mint <MINT_ADDRESS> 10000
+spl-token mint <MINT_ADDRESS> 1000000
 ```
-
-Attach metadata (using your IPFS CID):
-
-```bash
-spl-token-2022 update-metadata <MINT_ADDRESS>   --url https://api.mainnet-beta.solana.com   --metadata-url https://gateway.pinata.cloud/ipfs/<FOLDER_CID>/metadata.json
-```
-
-Confirm your token appears in Phantom (Mainnet).
 
 ---
 
-## 💧 4️⃣ What Is a Liquidity Pool?
+## 🧾 4️⃣ Add Metadata (via Storacha)
+
+You’ll now attach your metadata and image to your token using **Storacha** for decentralized IPFS hosting.
+
+### 🅱 Option — Storacha (Fast Decentralized Gateway)
+
+1. Visit https://storacha.network  
+2. Click **Upload Folder** and select your `metadata` directory (which includes your `metadata.json` and logo image).  
+3. After upload, Storacha will return a **CID** (e.g. `bafkreihxyz789...`).  
+4. Your hosted files will be accessible at:  
+
+```
+https://storacha.network/ipfs/<FOLDER_CID>/metadata.json
+https://storacha.network/ipfs/<FOLDER_CID>/mytoken-logo.png
+```
+
+> 🧠 Tip: You can use Pinata or Storacha interchangeably — both host content on IPFS.
+
+Attach the metadata to your token:
+
+```bash
+spl-token initialize-metadata <MINT_ADDRESS> "MyToken Token" "MTK" "https://storacha.network/ipfs/<FOLDER_CID>/metadata.json"
+```
+
+Confirm your token appears in Phantom (Mainnet) with name and logo.
+
+---
+
+## 💧 5️⃣ What Is a Liquidity Pool?
 
 A **liquidity pool** is a smart contract that holds two tokens — for example, your token + SOL.  
 When traders buy or sell one token for the other, the pool automatically updates prices based on supply and demand.
@@ -87,7 +107,7 @@ Instead of matching buyers and sellers like a traditional order book, an AMM use
 
 ---
 
-## ⚖️ 5️⃣ Choosing a Pairing Token
+## ⚖️ 6️⃣ Choosing a Pairing Token
 
 You can pair with **SOL** or **USDC**, but here’s the difference:
 
@@ -100,7 +120,7 @@ You can pair with **SOL** or **USDC**, but here’s the difference:
 
 ---
 
-## 🧭 6️⃣ Add Liquidity on Raydium
+## 🧭 7️⃣ Add Liquidity on Raydium
 
 1. Visit **[https://raydium.io/liquidity](https://raydium.io/liquidity)**  
 2. Connect your **Phantom wallet** (Mainnet)  
@@ -116,7 +136,7 @@ Once confirmed, Raydium will create your new **LP token** representing your shar
 
 ---
 
-## 📊 7️⃣ Verify Your Pool
+## 📊 8️⃣ Verify Your Pool
 
 After a minute or two, check:
 
@@ -138,7 +158,7 @@ Your token is now **tradable** on the Solana DEX network!
 
 ---
 
-## 💰 8️⃣ Understanding Pool Math
+## 💰 9️⃣ Understanding Pool Math
 
 Raydium uses a **constant-product AMM formula**:
 
@@ -158,7 +178,7 @@ No central exchange — it’s pure on-chain math.
 
 ---
 
-## ⚠️ 9️⃣ Tips & Best Practices
+## ⚠️ 🔟 Tips & Best Practices
 
 - 🧱 Start small — 0.01–0.02 SOL is enough for testing  
 - 💸 You can remove liquidity anytime to get your tokens back  
@@ -168,7 +188,7 @@ No central exchange — it’s pure on-chain math.
 
 ---
 
-## 💵 10️⃣ Typical Mainnet Costs
+## 💵 1️⃣1️⃣ Typical Mainnet Costs
 
 | Step | SOL (Approx) | USD (@ $150 / SOL) |
 |------|---------------|--------------------|
@@ -181,7 +201,7 @@ Your liquidity deposit (e.g., 0.02 SOL) is not a fee — it remains in the pool.
 
 ---
 
-## 🧾 11️⃣ Verify & Share
+## 🧾 1️⃣2️⃣ Verify & Share
 
 Once your pool is live:
 
@@ -191,7 +211,7 @@ Once your pool is live:
 
 ---
 
-## 🚀 12️⃣ Next Steps
+## 🚀 1️⃣3️⃣ Next Steps
 
 Your token now has real market value!  
 From here you can:
@@ -208,10 +228,10 @@ From here you can:
 |------|------------------|----------|
 | 1 | `solana config set --url https://api.mainnet-beta.solana.com` | Switch to Mainnet-Beta |
 | 2 | `solana-keygen new` | Create mainnet wallet |
-| 3 | `spl-token create-token --enable-metadata` | Mint new token |
+| 3 | `spl-token create-token --program-id TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb --enable-metadata --decimals 9` | Create Token-2022 mint |
 | 4 | `spl-token create-account <MINT_ADDRESS>` | Create token account |
-| 5 | `spl-token mint <MINT_ADDRESS> 10000` | Mint supply |
-| 6 | `spl-token-2022 update-metadata ...` | Attach metadata |
+| 5 | `spl-token mint <MINT_ADDRESS> 1000000` | Mint supply |
+| 6 | `spl-token initialize-metadata <MINT_ADDRESS> "MyToken Token" "MTK" "https://storacha.network/ipfs/<FOLDER_CID>/metadata.json"` | Attach metadata |
 | 7 | **Raydium UI → Add Liquidity** | Create pool (token + SOL) |
 | 8 | **Dexscreener / Jupiter** | Verify pool is live |
 
