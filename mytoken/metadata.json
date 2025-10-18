@@ -1,0 +1,32 @@
+{
+  "name": "MyToken Token",
+  "symbol": "MYT",
+  "description": "The official utility token of the MyToken project.",
+  "image": "<IMAGE_URI>",
+  "external_url": "https://mytoken.io",
+  "attributes": [
+    {
+      "trait_type": "Category",
+      "value": "Utility"
+    },
+    {
+      "trait_type": "Network",
+      "value": "Solana Mainnet"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "<IMAGE_URI>",
+        "type": "image/png"
+      }
+    ],
+    "category": "image",
+    "creators": [
+      {
+        "address": "<YOUR_WALLET_PUBLIC_KEY_HERE>",
+        "share": 100
+      }
+    ]
+  }
+}
