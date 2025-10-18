@@ -2,7 +2,7 @@
   "name": "MyToken Token",
   "symbol": "MYT",
   "description": "The official utility token of the MyToken project.",
-  "image": "<IMAGE_URI>",
+  "image": "https://storacha.network/ipfs/<IMAGE_CID>",
   "external_url": "https://mytoken.io",
   "attributes": [
     {
@@ -17,7 +17,7 @@
   "properties": {
     "files": [
       {
-        "uri": "<IMAGE_URI>",
+        "uri": "https://storacha.network/ipfs/<IMAGE_CID>",
         "type": "image/png"
       }
     ],
