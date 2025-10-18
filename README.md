@@ -32,7 +32,7 @@ Before starting, make sure you have:
 - ✅ **Phantom Wallet** (set to *Mainnet-Beta*)  
 - ✅ **SOL** in your wallet (~0.05 SOL or about $7 for all fees)  
 - ✅ Your **mint address** for the token you created earlier  
-- ✅ Optional: your token logo and metadata hosted on Storacha  
+- ✅ Optional: your token logo and metadata hosted on **Storacha**
 
 ---
 
@@ -126,27 +126,67 @@ If you open Phantom and don’t see your token yet:
 
 You’ll now attach your metadata and image to your token using **Storacha** for decentralized IPFS hosting.
 
-### 🅱 Option — Storacha (Fast Decentralized Gateway)
+---
 
-1. Visit https://storacha.network  
-2. Click **Upload Folder** and select your `metadata` directory (which includes your `metadata.json` and logo image).  
-3. After upload, Storacha will return a **CID** (e.g. `bafkreihxyz789...`).  
-4. Your hosted files will be accessible at:  
+### ⚙️ Step 1 — Upload Your Image
+
+1. Visit **[https://storacha.network](https://storacha.network)**.  
+2. Upload your **token image** (for example `token.png`).  
+3. Copy the **direct image URL**, which will look like this:
 
 ```
-https://storacha.network/ipfs/<FOLDER_CID>/metadata.json
-https://storacha.network/ipfs/<FOLDER_CID>/mytoken-logo.png
+https://storacha.network/ipfs/<IMAGE_CID>
 ```
 
-> 🧠 Tip: You can use Pinata or Storacha interchangeably — both host content on IPFS.
+---
 
-Attach the metadata to your token:
+### ⚙️ Step 2 — Update `metadata.json`
+
+Create or edit your `metadata.json` file to include the new image URL:
+
+```json
+{
+  "name": "MyToken Token",
+  "symbol": "MTK",
+  "description": "Example token created on Solana.",
+  "image": "https://storacha.network/ipfs/<IMAGE_CID>",
+  "attributes": [
+    { "trait_type": "Type", "value": "Utility" }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "https://storacha.network/ipfs/<IMAGE_CID>",
+        "type": "image/png"
+      }
+    ]
+  }
+}
+```
+
+Save this as `metadata.json`.
+
+---
+
+### ⚙️ Step 3 — Upload the JSON File
+
+Upload your `metadata.json` file to **Storacha** and copy the resulting URL:
+
+```
+https://storacha.network/ipfs/<NEW_METADATA_CID>
+```
+
+---
+
+### ⚙️ Step 4 — Update Metadata On-Chain
+
+Finally, update your token’s metadata URI using the Solana CLI:
 
 ```bash
-spl-token initialize-metadata <MINT_ADDRESS> "MyToken Token" "MTK" "https://storacha.network/ipfs/<FOLDER_CID>/metadata.json"
+spl-token update-metadata <MINT_ADDRESS>   --uri "https://storacha.network/ipfs/<NEW_METADATA_CID>"
 ```
 
-Confirm your token appears in Phantom (Mainnet) with name and logo.
+Once confirmed, your token will display its name, description, and logo in wallets and Solana explorers that support Token-2022 metadata.
 
 ---
 
