@@ -54,11 +54,22 @@ solana config set --keypair ~/.config/solana/mainnet.json
 
 Fund it with a small amount of SOL from an exchange.
 
-Then run the **same Token-2022 commands** as in the previous tutorial:
+---
 
+### 🧱 Then run the same Token-2022 commands as in the previous tutorial:
+
+#### 1️⃣ Create your token mint
 ```bash
 spl-token create-token --program-id TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb --enable-metadata --decimals 9
+```
+
+#### 2️⃣ Create a token account for your wallet
+```bash
 spl-token create-account <MINT_ADDRESS>
+```
+
+#### 3️⃣ Mint your initial supply
+```bash
 spl-token mint <MINT_ADDRESS> 1000000
 ```
 
