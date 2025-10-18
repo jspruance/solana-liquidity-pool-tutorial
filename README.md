@@ -2,7 +2,7 @@
 
 A complete, step-by-step guide to making your custom Solana token **tradable** by adding it to a **Raydium liquidity pool**.
 
-This tutorial builds on the previous **Token-2022 Solana Token Tutorial**.  
+This tutorial builds on the previous **Solana Token Tutorial** (non–Token-2022 version).  
 If you haven’t yet created your token, complete that guide first before proceeding.
 
 All steps are verified on **Mainnet-Beta** (Raydium does not support Devnet).
@@ -18,7 +18,7 @@ All steps are verified on **Mainnet-Beta** (Raydium does not support Devnet).
 By the end of this tutorial, you’ll know how to:
 
 - Understand what a **liquidity pool** and **AMM** (Automated Market Maker) are  
-- Mint your token on **mainnet-beta** using the Token-2022 program  
+- Mint your token on **mainnet-beta**  
 - Add a **Raydium liquidity pool** pairing your token with **SOL**  
 - View your new market on **Dexscreener** and **Jupiter**  
 - Give your token its **first real market value**
@@ -85,11 +85,10 @@ Visit:
 https://explorer.solana.com/address/<MINT_ADDRESS>?cluster=mainnet
 ```
 
-You should see your **Token-2022 Mint Account** details, including:
+You should see your **Token Mint Account** details, including:
 - Total supply (e.g., `1,000,000`)
 - Mint authority (your wallet address)
 - Decimals (`9`)
-- Extensions: `MetadataPointer`
 
 Click **“Token Accounts”** and confirm your wallet address appears there as the **owner** with your full balance.
 
@@ -118,7 +117,7 @@ Token                                         Balance
 ### 💡 Tip
 If you open Phantom and don’t see your token yet:
 - Click “+” → “Import Token” → paste your mint address.
-- Or use **Solflare**, which often displays Token-2022 metadata faster.
+- Or use **Solflare**, which often displays metadata faster.
 
 ---
 
@@ -183,14 +182,17 @@ https://storacha.network/ipfs/<NEW_METADATA_CID>
 Finally, initialize your token’s metadata account on-chain (the first time setup):
 
 ```bash
-spl-token-2022 initialize-metadata <MINT_ADDRESS>   --name "MyToken Token"   --symbol "MTK"   --uri "https://storacha.network/ipfs/<NEW_METADATA_CID>"
+spl-token initialize-metadata <MINT_ADDRESS> "MyToken Token" "MTK" "https://storacha.network/ipfs/<NEW_METADATA_CID>"
 ```
 
 This creates the metadata account for your token.  
 It only needs to be done **once**.
 
 > 💡 **Need to make a change later?**  
-> Use `spl-token-2022 update-metadata <MINT_ADDRESS> --uri "<NEW_URI>"`  
+> Use:
+> ```bash
+> spl-token update-metadata <MINT_ADDRESS> "MyToken Token" "MTK" "https://storacha.network/ipfs/<UPDATED_METADATA_CID>"
+> ```
 > if you upload a new image or JSON in the future.
 
 ---
@@ -258,70 +260,6 @@ https://jup.ag/swap/<YOUR_TOKEN_MINT>-So1111111111111111111111111111111111111111
 ```
 
 Your token is now **tradable** on the Solana DEX network!
-
----
-
-## 💰 🔟 Understanding Pool Math
-
-Raydium uses a **constant-product AMM formula**:
-
-```
-x * y = k
-```
-
-Where:
-- **x** = amount of your token  
-- **y** = amount of SOL  
-- **k** = constant (pool size)
-
-If traders buy your token, *x* decreases, *y* increases, and the price rises automatically.  
-If they sell, the opposite happens — price drops.
-
-No central exchange — it’s pure on-chain math.
-
----
-
-## ⚠️ 1️⃣1️⃣ Tips & Best Practices
-
-- 🧱 Start small — 0.01–0.02 SOL is enough for testing  
-- 💸 You can remove liquidity anytime to get your tokens back  
-- 🧮 The ratio you deposit sets the **starting price**  
-- 🪙 Keep your supply realistic — over-minted tokens lose credibility  
-- 🔍 Check your pool regularly using Raydium or Dexscreener  
-
----
-
-## 💵 1️⃣2️⃣ Typical Mainnet Costs
-
-| Step | SOL (Approx) | USD (@ $150 / SOL) |
-|------|---------------|--------------------|
-| Token mint + metadata | 0.007 – 0.012 | $1 – $2 |
-| Raydium pool creation | 0.010 – 0.020 | $1.50 – $3 |
-| Misc tx | 0.002 | $0.30 |
-| **Total (fees only)** | **≈ 0.02 – 0.03 SOL** | **≈ $3 – $5** |
-
-Your liquidity deposit (e.g., 0.02 SOL) is not a fee — it remains in the pool.
-
----
-
-## 🧾 1️⃣3️⃣ Verify & Share
-
-Once your pool is live:
-
-- 🔗 Share your **Dexscreener** or **Jupiter** link  
-- 🖼 Submit your token logo to the [Solana Token List](https://github.com/solana-labs/token-list) for wallet recognition  
-- 🪙 Add your token manually in Phantom if it doesn’t auto-detect  
-
----
-
-## 🚀 1️⃣4️⃣ Next Steps
-
-Your token now has real market value!  
-From here you can:
-
-- 📈 Track your pool stats on **Dexscreener**, **Birdeye**, or **Meteora**  
-- 🤖 Build a trading bot or analytics script using **Python** or **TypeScript**  
-- 🧠 Learn how to create **staking** or **farming** contracts for your token  
 
 ---
 
